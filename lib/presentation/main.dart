@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:new_ui/new_ui.dart';
 
-import 'domain/globals.dart';
+import '../domain/globals.dart';
 
 // Губайдуллина Камилла Рустемовна, 23.12.2025, 12:46
 
