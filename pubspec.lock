@@ -216,7 +216,7 @@ packages:
     description:
       path: "."
       ref: master
-      resolved-ref: "7a60222c17ba84cbaa3ae1d0a9599d682be61d14"
+      resolved-ref: "918f9a8e743cda673e88cc7b84f1281a57efaa74"
       url: "https://github.com/eclpze/ui-kit.git"
     source: git
     version: "0.0.1"

@@ -32,15 +32,16 @@ class TestPage extends StatefulWidget {
 // Класс состояния главного экрана
 class _TestPageState extends State<TestPage> {
   int _selectedIndex = 0;
+  int _index = 0;
   String? _nameError;
   String? _passwordError;
+  bool inCart = false;
 
-  @override
-  void dispose() {
-    nameController.dispose();
-    passwordController.dispose();
-    super.dispose();
-  }
+  // void dispose() {
+  //   nameController.dispose();
+  //   passwordController.dispose();
+  //   super.dispose();
+  // }
 
   void _validateForm() {
     setState(() {
@@ -86,7 +87,6 @@ class _TestPageState extends State<TestPage> {
                     color: input_bg,
                     borderColor: input_stroke,
                     focusColor: focus_textfield,
-                    errorColor: error_textfield,
                     cursorColor: accent,
                     borderRadius: 10,
                     errorText: _nameError,
@@ -104,12 +104,21 @@ class _TestPageState extends State<TestPage> {
                     color: input_bg,
                     borderColor: input_stroke,
                     focusColor: focus_textfield,
-                    errorColor: error_textfield,
                     cursorColor: accent,
                     borderRadius: 10,
                     errorText: _passwordError,
                   ),
                   SizedBox(height: 30),
+                  CustomDropdown(
+                    items: ['Мужской', 'Женский'],
+                    hintText: 'Пол',
+                    borderRadius: 10,
+                    padding: 25,
+                    color: input_bg,
+                    borderColor: input_stroke,
+                    margin: 10,
+                  ),
+                  SizedBox(height: 20),
                   CustomButton(
                     type: ButtonType.primary,
                     widthButton: 335,
@@ -121,7 +130,44 @@ class _TestPageState extends State<TestPage> {
                     fontSize: 17,
                     onPressed: _validateForm,
                   ),
-                  SizedBox(height: 20,),
+                  SizedBox(height: 30),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        CustomButton(
+                          type: ButtonType.chips,
+                          widthButton: 110,
+                          heightButton: 48,
+                          borderRadius: 10,
+                          elevationButton: 0,
+                          textButton: 'Тест',
+                          fontWeight: FontWeight.w700,
+                          fontSize: 17,
+                          onPressed: () {},
+                          isSelected: true,
+                          background: accent,
+                          colorText: white,
+                        ),
+                        CustomButton(
+                          type: ButtonType.chips,
+                          widthButton: 110,
+                          heightButton: 48,
+                          borderRadius: 10,
+                          elevationButton: 0,
+                          textButton: 'Тест',
+                          fontWeight: FontWeight.w700,
+                          fontSize: 17,
+                          onPressed: () {},
+                          isSelected: false,
+                          background: input_bg,
+                          colorText: description,
+                        ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(height: 20),
                   SizedBox(
                     height: 610,
                     child: ListView.builder(
@@ -226,9 +272,18 @@ class _TestPageState extends State<TestPage> {
                     widthTitle: 303,
                     textButton: 'Добавить',
                     secondaryText: 'Убрать',
-                    secondaryPressed: () {},
-                    onPressed: () {},
+                    secondaryPressed: () {
+                      setState(() {
+                        inCart = false;
+                      });
+                    },
+                    onPressed: () {
+                      setState(() {
+                        inCart = true;
+                      });
+                    },
                     paddingCard: 16,
+                    inCart: inCart,
                   ),
                   SizedBox(height: 20),
                   CustomCard(
@@ -242,6 +297,7 @@ class _TestPageState extends State<TestPage> {
                     onMinus: () {},
                     onIcon: () {},
                     onPlus: () {},
+                    inCart: false,
                   ),
                   SizedBox(height: 20),
                   CustomCard(
@@ -253,6 +309,7 @@ class _TestPageState extends State<TestPage> {
                     textButton: 'Открыть',
                     day: 'Прошло 2 дня',
                     onPressed: () {},
+                    inCart: true,
                   ),
                   SizedBox(height: 20),
                   CustomButton(
@@ -346,39 +403,6 @@ class _TestPageState extends State<TestPage> {
                   ),
                   SizedBox(height: 30),
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        CustomButton(
-                          type: ButtonType.chips,
-                          widthButton: 110,
-                          heightButton: 48,
-                          borderRadius: 10,
-                          elevationButton: 0,
-                          textButton: 'Популярные',
-                          fontWeight: FontWeight.w700,
-                          fontSize: 17,
-                          onPressed: () {},
-                          isSelected: true,
-                        ),
-                        CustomButton(
-                          type: ButtonType.chips,
-                          widthButton: 110,
-                          heightButton: 48,
-                          borderRadius: 10,
-                          elevationButton: 0,
-                          textButton: 'Популярные',
-                          fontWeight: FontWeight.w700,
-                          fontSize: 17,
-                          onPressed: () {},
-                          isSelected: false,
-                        ),
-                      ],
-                    ),
-                  ),
-                  SizedBox(height: 20),
-                  Padding(
                     padding: const EdgeInsets.symmetric(
                       horizontal: 15,
                       vertical: 10,
@@ -441,16 +465,6 @@ class _TestPageState extends State<TestPage> {
                     controller: searchController,
                   ),
                   SizedBox(height: 20),
-                  CustomDropdown(
-                    items: ['Мужской', 'Женский'],
-                    hintText: 'Пол',
-                    borderRadius: 10,
-                    padding: 25,
-                    color: input_bg,
-                    borderColor: input_stroke,
-                    margin: 10,
-                  ),
-                  SizedBox(height: 10),
                   Padding(
                     padding: const EdgeInsets.symmetric(
                       horizontal: 15,
@@ -469,7 +483,6 @@ class _TestPageState extends State<TestPage> {
                     thicknessDivider: 1,
                   ),
                   SizedBox(height: 20),
-
                 ],
               ),
             ),
@@ -478,14 +491,18 @@ class _TestPageState extends State<TestPage> {
       ),
       bottomNavigationBar: CustomTabBar(
         color: white,
-        onPressed: () {},
+        onPressed: (index) {
+          setState(() {
+             _index = index;
+          });
+        },
         titles: ['Главная', 'Каталог', 'Проекты', 'Профиль'],
         icons: [
           'assets/home.png',
           'assets/categories.png',
           'assets/projects.png',
           'assets/profile.png',
-        ],
+        ], selectedIndex: _index,
       ),
     );
   }
