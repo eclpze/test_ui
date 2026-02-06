@@ -1,7 +1,4 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:new_ui/new_ui.dart';
 import 'package:test_ui/presentation/main.dart';
@@ -111,31 +108,35 @@ void main() {
   });
 
   // Тест 5
-  // testWidgets('Work TabBar', (WidgetTester tester) async {
-  //   await tester.pumpWidget(const MyApp());
-  //
-  //   //
-  //   final tabBarItems = find.byType(BottomNavigationBarItem);
-  //   final activeIcon = find.byWidgetPredicate((w) {
-  //     if (w is Image) {
-  //       return true;
-  //     }
-  //     return false;
-  //   });
-  //   final list = tester.widgetList(activeIcon);
-  //
-  //   //
-  //   expect(tabBarItems, findsNWidgets(4));
-  //   expect(list, );
-  //
-  //   //
-  //   await tester.tap(find.text('Профиль'));
-  //   await tester.pump();
-  //
-  //   //
-  //
-  //
-  //   expect(list.last., );
-  //
-  // });
+  testWidgets('Work TabBar', (WidgetTester tester) async {
+    await tester.pumpWidget(const MyApp());
+
+    // Переменные для проверки
+    final tabBar = find.byType(BottomNavigationBar);
+    final tabBarWidget = tester.widget<BottomNavigationBar>(tabBar);
+    final image = find.descendant(of: tabBar, matching: find.byType(Image));
+    final images = tester.widgetList<Image>(image).toList();
+
+    // Проверка индекса и наличия tabbar
+    expect(tabBar, findsOneWidget);
+    expect(tabBarWidget.currentIndex, 0);
+
+    // Проверка цветов до нажатия
+    expect(images[0].color, accent);
+    expect(images[1].color, color_icons);
+
+    //  Переход на следующий раздел
+    await tester.tap(find.text('Каталог'));
+    await tester.pump();
+
+    // Переменные после нажатия
+    final updateTabBarWidget = tester.widget<BottomNavigationBar>(tabBar);
+    expect(updateTabBarWidget.currentIndex, 1);
+    final updateImages = tester.widgetList<Image>(image).toList();
+
+    // Проверка цветов после нажатия
+    expect(updateImages[0].color, color_icons);
+    expect(updateImages[1].color, accent);
+
+  });
 }

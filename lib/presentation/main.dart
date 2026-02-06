@@ -37,12 +37,6 @@ class _TestPageState extends State<TestPage> {
   String? _passwordError;
   bool inCart = false;
 
-  // void dispose() {
-  //   nameController.dispose();
-  //   passwordController.dispose();
-  //   super.dispose();
-  // }
-
   void _validateForm() {
     setState(() {
       // Валидация имени
@@ -309,7 +303,7 @@ class _TestPageState extends State<TestPage> {
                     textButton: 'Открыть',
                     day: 'Прошло 2 дня',
                     onPressed: () {},
-                    inCart: true,
+                    inCart: false,
                   ),
                   SizedBox(height: 20),
                   CustomButton(
